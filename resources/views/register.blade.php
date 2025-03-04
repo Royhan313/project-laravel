@@ -80,10 +80,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="devisi" class="form-label">Devisi</label>
+                    <label for="devisi" class="form-label">Divisi</label>
                     <div class="position-relative">
                         <select class="form-control" id="devisi" name="devisi" required>
-                            <option value="">Select a Devisi</option>
+                            <option value="">Select a Divisi</option>
                             <option value="IT" {{ old('devisi') == 'IT' ? 'selected' : '' }}>IT</option>
                             <option value="Admin" {{ old('devisi') == 'Admin' ? 'selected' : '' }}>Admin</option>
                             <option value="Digital" {{ old('devisi') == 'Digital' ? 'selected' : '' }}>Digital</option>

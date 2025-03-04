@@ -16,6 +16,60 @@
     <link rel="stylesheet" href="{{ asset('style/assets/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('style/assets/scss/style.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <style>
+                /* Membungkus tabel dengan scroll untuk layar kecil */
+        .user-info {
+            overflow-x: auto; /* Memungkinkan scroll horizontal */
+        }
+
+        .user-info table {
+            width: 100%; /* Membuat tabel sesuai lebar container */
+            border-collapse: collapse; /* Menghilangkan spasi antar sel */
+        }
+
+        .user-info th, 
+        .user-info td {
+            text-align: left; /* Menjadikan teks rata kiri */
+            padding: 8px; /* Menambah jarak dalam sel */
+            word-wrap: break-word; /* Memastikan teks panjang terpotong sesuai */
+        }
+
+        .user-info thead th {
+            background-color: #f8f9fa; /* Warna background untuk header tabel */
+            position: sticky; /* Membuat header tetap di atas saat scrolling */
+            top: 0;
+            z-index: 2; /* Supaya header tetap di atas */
+        }
+
+        /* Tambahkan media query untuk layar kecil */
+        @media (max-width: 768px) {
+            .user-info table {
+                font-size: 14px; /* Memperkecil ukuran font tabel */
+            }
+
+            .user-info th, 
+            .user-info td {
+                white-space: nowrap; /* Memastikan teks tidak memanjang ke bawah */
+            }
+        }
+
+        /* Style tambahan untuk table cards */
+        .card {
+            margin-bottom: 16px; /* Menambah jarak antar card */
+            border-radius: 8px; /* Membuat sudut card lebih lembut */
+            border: 1px solid #e1e1e1; /* Memberi batas pada card */
+        }
+
+        .card h5 {
+            font-weight: bold; /* Memberikan efek tebal pada judul card */
+        }
+
+        .card p {
+            font-size: 20px; /* Membuat teks pada card lebih jelas */
+            font-weight: 600;
+            color: #495057; /* Warna teks */
+        }
+    </style>
 </head>
 <body>
     
@@ -30,7 +84,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="">Royhan.Magang.User</a>
+                <a class="navbar-brand" href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a>
             </div>
  
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -132,28 +186,41 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>NO</th>
                                 <th>Nama</th>
                                 <th>Divisi</th>
                                 <th>Tanggal</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Pulang</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Selesai</th>
                                 <th>Durasi Lembur (Jam)</th>
-                                <th>Keterangan</th>
+                                <th>Pekerjaan</th>
+                                <th>Hasil Lembur</th>
+                                <th>File Upload</th>
+                                <th>Lokasi</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($lemburData as $lembur)
                                 <tr>
-                                    <td>{{ $lembur->id }}</td>
+                                    <td  id="seq"></td>
                                     <td>{{ $lembur->name }}</td>
                                     <td>{{ $lembur->division }}</td>
                                     <td>{{ $lembur->tanggal }}</td>
+                                    <td>{{ $lembur->jam_masuk }}</td>
+                                    <td>{{ $lembur->jam_pulang }}</td>
                                     <td>{{ $lembur->jam_mulai }}</td>
                                     <td>{{ $lembur->jam_selesai }}</td>
                                     <td>{{ $lembur->jml_lembur }}</td>
-                                    <td>{{ $lembur->keterangan }}</td>
+                                    <td>{{ $lembur->pekerjaan }}</td>
+                                    <td>{{ $lembur->hasil_lembur }}</td>
+                                    <td>
+                                        <a href="{{ route('privew', $lembur->id) }}" class="btn btn-success btn-sm" >Preview</a>
+                                    </td>
+                                 <!--   <td>{{ $lembur->upload_doc }}</td> -->
+                                    <td>{{ $lembur->lokasi }}</td>
                                     <td>{{ $lembur->status }}</td>
                                 </tr>
                             @endforeach
@@ -176,6 +243,13 @@
     });
 </script>
 @endif
- 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('table tbody tr');
+        rows.forEach((row, index) => {
+            row.querySelector('td#seq').textContent = index + 1;
+        });
+    });
+</script>
 </body>
 </html>

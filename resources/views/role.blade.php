@@ -125,9 +125,9 @@
                         <div class="user-menu dropdown-menu">
                         <a href="{{ route('profileadmin') }}">Profile</a>
                             <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-danger w-100 mt-2">Logout</button>
-        </form>
+                                @csrf
+                                <button type="submit" class="btn btn-danger w-100 mt-2">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -144,59 +144,46 @@
         <!-- Main Content -->
         <div class="container mt-4">
                 <div class="user-info">
-                    <h3>Data Pengajuan Lembur</h3>
+                    <h3>Data Akun</h3>
                     <!-- Tabel Data Lembur -->
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>NO</th>
                                 <th>Nama</th>
+                                <th>Email</th>
                                 <th>Divisi</th>
-                                <th>Tanggal</th>
-                                <th>Jam Masuk</th>
-                                <th>Jam Pulang</th>
-                                <th>Jam Mulai</th>
-                                <th>Jam Selesai</th>
-                                <th>Durasi Lembur (Jam)</th>
-                                <th>Pekerjaan</th>
-                                <th>Hasil Lembur</th>
-                                <th>File Upload</th>
-                                <th>Lokasi</th>
-                                <th>Status</th>
-                                <th>Approval</th>
+                                <th>Role</th>
+                                <th>Update Role</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($lemburData as $lembur)
+                            @foreach ($roledata as $role)
                                 <tr>
-                                     <td  id="seq"></td>
-                                    <td>{{ $lembur->name }}</td>
-                                    <td>{{ $lembur->division }}</td>
-                                    <td>{{ $lembur->tanggal }}</td>
-                                    <td>{{ $lembur->jam_masuk }}</td>
-                                    <td>{{ $lembur->jam_pulang }}</td>
-                                    <td>{{ $lembur->jam_mulai }}</td>
-                                    <td>{{ $lembur->jam_selesai }}</td>
-                                    <td>{{ $lembur->jml_lembur }}</td>
-                                    <td>{{ $lembur->pekerjaan }}</td>
-                                    <td>{{ $lembur->hasil_lembur }}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $role->name }}</td>
+                                    <td>{{ $role->email }}</td>
+                                    <td>{{ $role->devisi }}</td>   
                                     <td>
-                                        <a href="{{ route('privew', $lembur->id) }}" class="btn btn-success btn-sm" >Priview</a>
+                                        <form action="{{ route('update.role', $role->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="role" class="form-select form-select-sm" style="width: auto;">
+                                                <option value="" {{ is_null($role->role) ? 'selected' : '' }}>-- Pilih Role --</option>
+                                                <option value="IT Head" {{ $role->role === 'IT Head' ? 'selected' : '' }}>IT Head</option>
+                                                <option value="IT test" {{ $role->role === 'IT test' ? 'selected' : '' }}>IT test</option>
+                                                <option value="User" {{ $role->role === 'User' ? 'selected' : '' }}>User</option>
+                                            </select>
                                     </td>
-                                 <!--   <td>{{ $lembur->upload_doc }}</td> -->
-                                    <td>{{ $lembur->lokasi }}</td>
-                                    <td>{{ $lembur->status }}</td>
                                     <td>
-                                        <!-- Tombol Approve -->
-                                        <a href="{{ route('approveLembur', $lembur->id) }}" class="btn btn-success btn-sm" onclick="return confirm('Apakah Anda yakin ingin menyetujui lembur ini?')">Approve</a>
-
-                                        <!-- Tombol Reject -->
-                                        <a href="{{ route('rejectLembur', $lembur->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menolak lembur ini?')">Reject</a>
+                                            <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Apakah Anda yakin ingin mengubah role?')">Update</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
 
                 </div>
             </div>

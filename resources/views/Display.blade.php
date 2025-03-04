@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Landing Page</title>
+    <title>Royhan.Magang</title>
     <style>
         /* Global Styles */
         
@@ -229,7 +229,7 @@
         <ul>
             <li><a href="https://lodcreative.id/">Home</a></li>
             <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Regist</a></li>
+            
         </ul>
     </nav>
 

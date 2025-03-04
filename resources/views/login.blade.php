@@ -98,9 +98,6 @@
                 </i>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
-            <div class="mt-3 text-center">
-                <a class="footer-link" href="{{ route('register') }}">Don't have an account? Register here</a>
-            </div>
         </form>
     </div>
 

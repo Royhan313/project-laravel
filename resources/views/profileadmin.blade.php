@@ -29,13 +29,12 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="">Royhan.Magang.Admin</a>
-                <a class="navbar-brand hidden" href="">M</a>
+                <<a class="navbar-brand" href="{{ route('dashboard') }}">{{ Auth::user()->role }}</a>
             </div>
  
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                <li>
                     <a href="{{ route('dashboard') }}">Home</a>
                     </li>
                     <li>
@@ -43,6 +42,12 @@
                     </li>
                     <li>
                     <a href="{{ route('approval') }}">Persetujuan Lembur</a>
+                    </li>
+                    <li>
+                    <a href="{{ route('register') }}">Buat Akun</a>
+                    </li>
+                    <li>
+                    <a href="{{ route('role') }}">Role</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -64,7 +69,7 @@
                             <img class="user-avatar rounded-circle" src="{{ asset('style/images/admin.jpg') }}">
                         </a>
                         <div class="user-menu dropdown-menu">
-                        <a href="{{ route('profile') }}">Profile</a>
+                        <a href="{{ route('profileadmin') }}">Profile</a>
                             <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-danger w-100 mt-2">Logout</button>
@@ -88,8 +93,8 @@
                 <h3>User Information</h3>
                 <p><strong>Nama:</strong> {{ Auth::user()->name }}</p>
                 <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
-                <p><strong>Devisi:</strong> {{ Auth::user()->devisi }}</p>
-                <p><strong>Tanggal Regis:</strong> {{ Auth::user()->created_at->format('j F Y') }}</p>
+                <p><strong>Divisi:</strong> {{ Auth::user()->devisi }}</p>
+                <p><strong>Tanggal Regist:</strong> {{ Auth::user()->created_at->format('j F Y') }}</p>
             </div>
             </div>
         </div>

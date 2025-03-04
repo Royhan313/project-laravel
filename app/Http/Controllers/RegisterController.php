@@ -19,6 +19,8 @@ class RegisterController extends Controller
         return view('register');
     }
 
+    
+
     /**
      * Menangani proses registrasi pengguna
      *
@@ -44,6 +46,6 @@ class RegisterController extends Controller
         ]);
 
         // Redirect atau login setelah registrasi berhasil
-        return redirect()->route('login')->with('success', 'Registration successful, please login!');
+        return redirect()->route('admindashboard')->with('success', 'Registration successful, please login!');
     }
 }

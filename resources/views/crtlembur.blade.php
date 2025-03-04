@@ -30,7 +30,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="">Royhan.Magang.User</a>
+                <a class="navbar-brand" href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a>
             </div>
  
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -68,9 +68,9 @@
                         <div class="user-menu dropdown-menu">
                         <a href="{{ route('profile') }}">Profile</a>
                             <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-danger w-100 mt-2">Logout</button>
-        </form>
+                                @csrf
+                                <button type="submit" class="btn btn-danger w-100 mt-2">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -87,61 +87,97 @@
         <!-- Main Content -->
         <div class="container mt-4">
             <div class="user-info">
-                <form action="{{ route('crtlembur') }}" method="POST" class="shadow p-4 bg-white rounded">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">Nama Karyawan</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
-                     </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="division">Divisi</label>
-                        <select class="form-control" id="division" name="division" disabled>
-                            <option value="Admin" {{ Auth::user()->devisi == 'Admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="Digital" {{ Auth::user()->devisi == 'Digital' ? 'selected' : '' }}>Digital</option>
-                            <option value="IT" {{ Auth::user()->devisi == 'IT' ? 'selected' : '' }}>IT</option>
-                        </select>
-                        <!-- Input hidden untuk divisi yang akan dikirim -->
-                        <input type="hidden" name="division" value="{{ Auth::user()->devisi }}">
-                    </div>
+            <form action="{{ route('crtlembur') }}" method="POST" class="shadow p-4 bg-white rounded" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="name">Nama Karyawan</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="division">Divisi</label>
+                    <select class="form-control" id="division" name="division" disabled>
+                        <option value="Admin" {{ Auth::user()->devisi == 'Admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="Digital" {{ Auth::user()->devisi == 'Digital' ? 'selected' : '' }}>Digital</option>
+                        <option value="IT" {{ Auth::user()->devisi == 'IT' ? 'selected' : '' }}>IT</option>
+                    </select>
+                    <!-- Input hidden untuk divisi yang akan dikirim -->
+                    <input type="hidden" name="division" value="{{ Auth::user()->devisi }}">
+                </div>
 
-                    <br>
-                    <div class="form-group">
-                        <label for="date">Tanggal Pengajuan Lembur</label>
-                        <input type="date" class="form-control" id="date" name="tanggal" required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="time_in">Jam Mulai</label>
-                        <input type="time" class="form-control" id="time_in" name="jam_mulai" required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="time_out">Jam Selesai</label>
-                        <input type="time" class="form-control" id="time_out" name="jam_selesai" required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="overtime_duration">Durasi Lembur (Jam)</label>
-                        <input type="number" class="form-control" id="overtime_duration" name="jml_lembur" step="0.1" required>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="reason">Alasan Lembur</label>
-                        <textarea class="form-control" id="reason" name="keterangan" required></textarea>
-                    </div>
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Ajukan Lembur</button>
-                </form>
+                <br>
+                <div class="form-group">
+                    <label for="date">Tanggal Pengajuan Lembur</label>
+                    <input type="date" class="form-control" id="date" name="tanggal" required>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="time_in">Jam Masuk</label>
+                    <input type="time" class="form-control" id="time_in" name="jam_masuk" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="time_out">Jam Pulang</label>
+                    <input type="time" class="form-control" id="time_out" name="jam_pulang" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time_mulai">Jam Mulai Lembur</label>
+                    <input type="time" class="form-control" id="time_mulai" name="jam_mulai" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="time_selesai">Jam Selesai Lembur</label>
+                    <input type="time" class="form-control" id="time_selesai" name="jam_selesai" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="overtime_duration">Durasi Lembur (Jam)</label>
+                    <input type="number" class="form-control" id="overtime_duration" name="jml_lembur" step="0.1" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="reason">Pekerjaan</label>
+                    <textarea class="form-control" id="reason" name="pekerjaan" required></textarea>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="hasil_lembur">Hasil Lembur</label>
+                    <textarea class="form-control" id="hasil_lembur" name="hasil_lembur" required></textarea>
+                </div>
+                <br>
+
+                <!-- Kondisi jika ada file sebelumnya -->
+               
+                <div class="form-group">
+                    <label for="upload_doc">Dokumentasi Lembur</label>
+                    @if(isset($lembur) && $lembur->upload_doc)
+                        <a href="{{ asset('storage/' . $lembur->upload_doc) }}" target="_blank">Lihat File</a>
+                    @endif
+                    <input type="file" class="form-control" id="upload_doc" name="upload_doc" accept=".pdf,.docx,.jpg,.png">
+                    @if ($errors->has('upload_doc'))
+                        <small class="text-danger">{{ $errors->first('upload_doc') }}</small>
+                    @endif
+                </div>
+             
+                 
+                <div class="form-group">
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" class="form-control" id="lokasi" name="lokasi" >
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Ajukan Lembur</button>
+            </form>
+
             </div>
         </div>
     </div>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Ambil elemen input
-        const timeIn = document.getElementById('time_in');
-        const timeOut = document.getElementById('time_out');
+        const timeIn = document.getElementById('time_mulai');
+        const timeOut = document.getElementById('time_selesai');
         const overtimeDuration = document.getElementById('overtime_duration');
 
         // Fungsi untuk menghitung durasi lembur

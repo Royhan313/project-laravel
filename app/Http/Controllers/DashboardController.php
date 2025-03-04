@@ -15,6 +15,7 @@ class DashboardController extends Controller
     {
         // Menampilkan view dashboard untuk user biasa
         return view('dashboard'); // Anda bisa mengganti ini dengan tampilan untuk user biasa
+
     }
 
     /**
@@ -26,5 +27,6 @@ class DashboardController extends Controller
     {
         // Menampilkan view dashboard khusus untuk admin
         return view('admindashboard'); // Pastikan Anda memiliki file view untuk admin
+        
     }
 }

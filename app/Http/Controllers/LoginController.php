@@ -27,7 +27,7 @@ class LoginController extends Controller
             $user = Auth::user(); // Dapatkan user yang baru saja login
 
             // Cek role user
-            if ($user->role == 'admin') {
+            if ($user->role == 'Admin' or $user->role == 'IT Head' or $user->role == 'IT test') {
                 // Jika admin, arahkan ke halaman admin
                 return redirect()->route('admindashboard');
             } else {
